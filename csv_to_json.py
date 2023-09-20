@@ -10,7 +10,12 @@ def main():
         df = pd.read_csv(file_.path)
         json_data = [{"phi": phi, "psi": psi} for phi, psi in zip(df.Phi, df.Psi)]
 
-        with open(os.path.join(output_dir, file_.name.replace("csv", "json")), "w") as out_file:
+        name = file_.name.rstrip('.csv')
+        x = name.split("-")
+        swapped_name = f"{x[2]}-{x[1]}-{x[0]}.json"
+        out_file_name = os.path.join(output_dir, swapped_name)
+
+        with open(out_file_name, "w") as out_file:
             json.dump(json_data, out_file)
 
 
